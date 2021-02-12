@@ -16,8 +16,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form class="d-flex">
-            <button class="btn btn-outline-success" type="submit">
+          <form class="d-flex flex-end">
+            <button
+              class="d-flex flex-end btn btn-outline-bg-info"
+              type="submit"
+            >
               Logout
             </button>
           </form>
@@ -26,213 +29,67 @@
     </nav>
     <br /><br />
 
-    <!-- CARD -->
-    <section class="d-flex justify-content-around">
-      <!-- BACKLOG -->
-      <div class="bg-info text-white rounded">
-        <h4 class="m-2 text-center">Backlog</h4>
-
-        <div class="m-3 card text-dark">
-          <div class="card-header">Title</div>
-          <div class="card-body">
-            <h5 class="card-title">title</h5>
-            <p class="card-text">text content</p>
-            <div class="d-flex justify-content-end">
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-primary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#editModal"
-                >Edit</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-secondary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#moveModal"
-                >Move</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-danger rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-                >Delete</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="p-3 d-flex justify-content-end">
-          <a
-            href="#"
-            class="btn btn-sm btn-primary rounded-pill"
-            data-bs-toggle="modal"
-            data-bs-target="#addModal"
-            >Add</a
-          >
-        </div>
+    <div class="container-fluid d-flex justify-content-around">
+      <div class="row">
+        <Category
+          v-for="(category, index) in categories"
+          :key="index"
+          :taskData="taskData"
+          :eachCategory="category"
+          @destroyTask="destroyTask"
+          @editTask="editTask"
+          @addTask="addTask"
+        ></Category>
       </div>
-
-      <!-- TODO -->
-      <div class="bg-info text-white rounded">
-        <h4 class="m-2 text-center">Todo</h4>
-
-        <div class="m-3 card text-dark">
-          <div class="card-header">Title</div>
-          <div class="card-body">
-            <h5 class="card-title">title</h5>
-            <p class="card-text">text content</p>
-            <div class="d-flex justify-content-end">
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-primary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#editModal"
-                >Edit</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-secondary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#moveModal"
-                >Move</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-danger rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-                >Delete</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="p-3 d-flex justify-content-end">
-          <a
-            href="#"
-            class="btn btn-sm btn-primary rounded-pill"
-            data-bs-toggle="modal"
-            data-bs-target="#addModal"
-            >Add</a
-          >
-        </div>
-      </div>
-
-      <!-- DOING -->
-      <div class="bg-info text-white rounded">
-        <h4 class="m-2 text-center">Doing</h4>
-        <div class="m-3 card text-dark">
-          <div class="card-header">Title</div>
-          <div class="card-body">
-            <h5 class="card-title">title</h5>
-            <p class="card-text">text content</p>
-            <div class="d-flex justify-content-end">
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-primary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#editModal"
-                >Edit</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-secondary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#moveModal"
-                >Move</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-danger rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-                >Delete</a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="p-3 d-flex justify-content-end">
-          <a
-            href="#"
-            class="btn btn-sm btn-primary rounded-pill"
-            data-bs-toggle="modal"
-            data-bs-target="#addModal"
-            >Add</a
-          >
-        </div>
-      </div>
-
-      <!-- COMPLETE -->
-      <div class="bg-info text-white rounded">
-        <h4 class="m-2 text-center">Complete</h4>
-        <div class="m-3 card text-dark">
-          <div class="card-header">Title</div>
-          <div class="card-body">
-            <h5 class="card-title">title</h5>
-            <p class="card-text">text content</p>
-            <div class="d-flex justify-content-end">
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-primary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#editModal"
-                >Edit</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-secondary rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#moveModal"
-                >Move</a
-              >
-              <a
-                href="#"
-                class="m-2 btn btn-sm btn-outline-danger rounded-pill"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-                >Delete</a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="p-3 d-flex justify-content-end">
-          <a
-            href="#"
-            class="btn btn-sm btn-primary rounded-pill"
-            data-bs-toggle="modal"
-            data-bs-target="#addModal"
-            >Add</a
-          >
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+import Category from "../components/Category.vue";
+import Task from "../components/Task.vue";
 export default {
-  methods: {
-    getTasks() {
-      axios({
-        method: "GET",
-        url: "http://localhost:3000/tasks",
-        headers: {
-          access_token: localStorage.access_token,
-        },
-      })
-        .then(({ data }) => {
-          console.log(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  data() {
+    return {
+      categories: ["Backlog", "Todo", "Doing", "Complete"],
+    };
   },
+  components: {
+    Category,
+    Task,
+  },
+  props: ["taskData"],
+  methods: {
+    destroyTask(id) {
+      // console.log("del dari kanban");
+      this.$emit("destroyTask", id);
+    },
+    editTask(id) {
+      // console.log("dari kanban");
+      this.$emit("editTask", id);
+    },
+    addTask() {},
+  },
+  // methods: {
+  //   getTasks() {
+  //     axios({
+  //       method: "GET",
+  //       url: "http://localhost:3000/tasks",
+  //       headers: {
+  //         access_token: localStorage.access_token,
+  //       },
+  //     })
+  //       .then(({ data }) => {
+  //         console.log(data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   },
+  // },
   created() {
-    this.getTasks();
+    this.$emit("getTasks");
   },
 };
 </script>

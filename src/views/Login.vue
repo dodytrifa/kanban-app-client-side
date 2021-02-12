@@ -32,7 +32,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["dataisLogin"],
+  props: ["dataisLogin", "urlServer"],
   data() {
     return {
       loginEmail: "",
@@ -44,7 +44,7 @@ export default {
     login() {
       axios({
         method: "POST",
-        url: "http://localhost:3000/users/login",
+        url: `${this.urlServer}/users/login`,
         data: {
           email: this.loginEmail,
           password: this.loginPassword,

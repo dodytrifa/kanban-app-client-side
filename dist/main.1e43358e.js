@@ -10728,7 +10728,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
-  props: ["dataisLogin"],
+  props: ["dataisLogin", "urlServer"],
   data: function data() {
     return {
       loginEmail: "",
@@ -10742,7 +10742,7 @@ var _default = {
 
       (0, _axios.default)({
         method: "POST",
-        url: "http://localhost:3000/users/login",
+        url: "".concat(this.urlServer, "/users/login"),
         data: {
           email: this.loginEmail,
           password: this.loginPassword
@@ -10962,6 +10962,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 var _default = {
+  props: ["urlServer"],
   data: function data() {
     return {
       registerEmail: "",
@@ -10972,13 +10973,13 @@ var _default = {
     register: function register() {
       (0, _axios.default)({
         method: "POST",
-        url: "http://localhost:3000/users/register",
+        url: "".concat(this.urlServer, "/users/register"),
         data: {
           email: this.registerEmail,
           password: this.registerPassword
         }
       }).then(function (response) {
-        console.log(response);
+        console.log(response.data.msg);
       }).catch(function (err) {
         console.log(err);
       });
@@ -11139,7 +11140,149 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/Kanban.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Task.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "Task",
+  props: ["categoryContainer"],
+  methods: {
+    destroyTask: function destroyTask() {
+      this.$emit("destroyTask", this.categoryContainer.id);
+    },
+    editTask: function editTask() {
+      this.$emit("editTask", this.categoryContainer.id);
+    }
+  }
+};
+exports.default = _default;
+        var $ef8a05 = exports.default || module.exports;
+      
+      if (typeof $ef8a05 === 'function') {
+        $ef8a05 = $ef8a05.options;
+      }
+    
+        /* template */
+        Object.assign($ef8a05, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "m-3 card text-dark" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "m-2 text-center" }, [
+        _vm._v(_vm._s(_vm.categoryContainer.title))
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v(_vm._s(_vm.categoryContainer.title))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex justify-content-end" }, [
+        _c(
+          "button",
+          {
+            staticClass: "m-2 btn btn-sm btn-outline-primary rounded-pill",
+            attrs: { type: "button" },
+            on: { click: _vm.editTask }
+          },
+          [_vm._v("\n        Edit\n      ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "m-2 btn btn-sm btn-outline-secondary rounded-pill",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Move")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "m-2 btn btn-sm btn-outline-danger rounded-pill",
+            attrs: { type: "button" },
+            on: { click: _vm.destroyTask }
+          },
+          [_vm._v("\n        Delete\n      ")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$ef8a05', $ef8a05);
+          } else {
+            api.reload('$ef8a05', $ef8a05);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Category.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11147,7 +11290,187 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _axios = _interopRequireDefault(require("axios"));
+var _Task = _interopRequireDefault(require("../components/Task"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "Category",
+  components: {
+    Task: _Task.default
+  },
+  props: ["eachCategory", "taskData"],
+  methods: {
+    destroyTask: function destroyTask(id) {
+      // console.log("dari category");
+      this.$emit("destroyTask", id);
+    },
+    editTask: function editTask(id) {
+      // console.log("dari category");
+      this.$emit("editTask", id);
+    },
+    addTask: function addTask() {
+      // console.log("dari category");
+      this.$emit("addTask");
+    }
+  },
+  computed: {
+    findTaskByCategory: function findTaskByCategory() {
+      var categoryContainer = [];
+
+      for (var i = 0; i < this.taskData.length; i++) {
+        if (this.taskData[i].category === this.eachCategory) {
+          categoryContainer.push(this.taskData[i]);
+        }
+      }
+
+      return categoryContainer;
+    }
+  }
+};
+exports.default = _default;
+        var $28a4ae = exports.default || module.exports;
+      
+      if (typeof $28a4ae === 'function') {
+        $28a4ae = $28a4ae.options;
+      }
+    
+        /* template */
+        Object.assign($28a4ae, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "m-3 bg-info card text-white d-flex justify-content-center"
+    },
+    [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h4", { staticClass: "m-2 text-center" }, [
+          _vm._v(_vm._s(_vm.eachCategory))
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        [
+          _vm._l(_vm.findTaskByCategory, function(task) {
+            return _c("Task", {
+              key: task.id,
+              attrs: { categoryContainer: task },
+              on: { destroyTask: _vm.destroyTask, editTask: _vm.editTask }
+            })
+          }),
+          _vm._v(" "),
+          _vm._m(0)
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-end" }, [
+      _c("div", { staticClass: "p-3 d-flex justify-content-end" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-sm btn-primary rounded-pill",
+            attrs: {
+              href: "#",
+              "data-bs-toggle": "modal",
+              "data-bs-target": "#addModal"
+            }
+          },
+          [_vm._v("Add")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$28a4ae', $28a4ae);
+          } else {
+            api.reload('$28a4ae', $28a4ae);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"../components/Task":"src/components/Task.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/views/Kanban.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Category = _interopRequireDefault(require("../components/Category.vue"));
+
+var _Task = _interopRequireDefault(require("../components/Task.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11198,191 +11521,48 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// import axios from "axios";
 var _default = {
-  methods: {
-    getTasks: function getTasks() {
-      (0, _axios.default)({
-        method: "GET",
-        url: "http://localhost:3000/tasks",
-        headers: {
-          access_token: localStorage.access_token
-        }
-      }).then(function (_ref) {
-        var data = _ref.data;
-        console.log(data);
-      }).catch(function (err) {
-        console.log(err);
-      });
-    }
+  data: function data() {
+    return {
+      categories: ["Backlog", "Todo", "Doing", "Complete"]
+    };
   },
+  components: {
+    Category: _Category.default,
+    Task: _Task.default
+  },
+  props: ["taskData"],
+  methods: {
+    destroyTask: function destroyTask(id) {
+      // console.log("del dari kanban");
+      this.$emit("destroyTask", id);
+    },
+    editTask: function editTask(id) {
+      // console.log("dari kanban");
+      this.$emit("editTask", id);
+    },
+    addTask: function addTask() {}
+  },
+  // methods: {
+  //   getTasks() {
+  //     axios({
+  //       method: "GET",
+  //       url: "http://localhost:3000/tasks",
+  //       headers: {
+  //         access_token: localStorage.access_token,
+  //       },
+  //     })
+  //       .then(({ data }) => {
+  //         console.log(data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   },
+  // },
   created: function created() {
-    this.getTasks();
+    this.$emit("getTasks");
   }
 };
 exports.default = _default;
@@ -11398,363 +11578,92 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("br"),
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container-fluid d-flex justify-content-around" },
+      [
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.categories, function(category, index) {
+            return _c("Category", {
+              key: index,
+              attrs: { taskData: _vm.taskData, eachCategory: category },
+              on: {
+                destroyTask: _vm.destroyTask,
+                editTask: _vm.editTask,
+                addTask: _vm.addTask
+              }
+            })
+          }),
+          1
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "nav",
-        {
-          staticClass: "navbar navbar-expand-lg navbar-light text-white bg-info"
-        },
-        [
-          _c("div", { staticClass: "container-fluid" }, [
-            _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-              _vm._v("Kanban App")
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "navbar-toggler",
-                attrs: {
-                  type: "button",
-                  "data-bs-toggle": "collapse",
-                  "data-bs-target": "#navbarSupportedContent",
-                  "aria-controls": "navbarSupportedContent",
-                  "aria-expanded": "false",
-                  "aria-label": "Toggle navigation"
-                }
-              },
-              [_c("span", { staticClass: "navbar-toggler-icon" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "collapse navbar-collapse",
-                attrs: { id: "navbarSupportedContent" }
-              },
-              [
-                _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }),
-                _vm._v(" "),
-                _c("form", { staticClass: "d-flex" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-success",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("\n            Logout\n          ")]
-                  )
-                ])
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _c("br"),
-      _vm._v(" "),
-      _c("section", { staticClass: "d-flex justify-content-around" }, [
-        _c("div", { staticClass: "bg-info text-white rounded" }, [
-          _c("h4", { staticClass: "m-2 text-center" }, [_vm._v("Backlog")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-3 card text-dark" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Title")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("title")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("text content")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex justify-content-end" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-primary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#editModal"
-                    }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-secondary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#moveModal"
-                    }
-                  },
-                  [_vm._v("Move")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-danger rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#deleteModal"
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
+    return _c(
+      "nav",
+      {
+        staticClass: "navbar navbar-expand-lg navbar-light text-white bg-info"
+      },
+      [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+            _vm._v("Kanban App")
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "p-3 d-flex justify-content-end" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-primary rounded-pill",
-                attrs: {
-                  href: "#",
-                  "data-bs-toggle": "modal",
-                  "data-bs-target": "#addModal"
-                }
-              },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "bg-info text-white rounded" }, [
-          _c("h4", { staticClass: "m-2 text-center" }, [_vm._v("Todo")]),
+          _c(
+            "button",
+            {
+              staticClass: "navbar-toggler",
+              attrs: {
+                type: "button",
+                "data-bs-toggle": "collapse",
+                "data-bs-target": "#navbarSupportedContent",
+                "aria-controls": "navbarSupportedContent",
+                "aria-expanded": "false",
+                "aria-label": "Toggle navigation"
+              }
+            },
+            [_c("span", { staticClass: "navbar-toggler-icon" })]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "m-3 card text-dark" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Title")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("title")]),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }),
               _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("text content")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex justify-content-end" }, [
+              _c("form", { staticClass: "d-flex flex-end" }, [
                 _c(
-                  "a",
+                  "button",
                   {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-primary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#editModal"
-                    }
+                    staticClass: "d-flex flex-end btn btn-outline-bg-info",
+                    attrs: { type: "submit" }
                   },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-secondary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#moveModal"
-                    }
-                  },
-                  [_vm._v("Move")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-danger rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#deleteModal"
-                    }
-                  },
-                  [_vm._v("Delete")]
+                  [_vm._v("\n            Logout\n          ")]
                 )
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "p-3 d-flex justify-content-end" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-primary rounded-pill",
-                attrs: {
-                  href: "#",
-                  "data-bs-toggle": "modal",
-                  "data-bs-target": "#addModal"
-                }
-              },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "bg-info text-white rounded" }, [
-          _c("h4", { staticClass: "m-2 text-center" }, [_vm._v("Doing")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-3 card text-dark" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Title")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("title")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("text content")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex justify-content-end" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-primary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#editModal"
-                    }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-secondary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#moveModal"
-                    }
-                  },
-                  [_vm._v("Move")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-danger rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#deleteModal"
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "p-3 d-flex justify-content-end" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-primary rounded-pill",
-                attrs: {
-                  href: "#",
-                  "data-bs-toggle": "modal",
-                  "data-bs-target": "#addModal"
-                }
-              },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "bg-info text-white rounded" }, [
-          _c("h4", { staticClass: "m-2 text-center" }, [_vm._v("Complete")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "m-3 card text-dark" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Title")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("title")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("text content")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex justify-content-end" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-primary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#editModal"
-                    }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-secondary rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#moveModal"
-                    }
-                  },
-                  [_vm._v("Move")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "m-2 btn btn-sm btn-outline-danger rounded-pill",
-                    attrs: {
-                      href: "#",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#deleteModal"
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "p-3 d-flex justify-content-end" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-primary rounded-pill",
-                attrs: {
-                  href: "#",
-                  "data-bs-toggle": "modal",
-                  "data-bs-target": "#addModal"
-                }
-              },
-              [_vm._v("Add")]
-            )
-          ])
+            ]
+          )
         ])
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -11789,7 +11698,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"../components/Category.vue":"src/components/Category.vue","../components/Task.vue":"src/components/Task.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11802,6 +11711,8 @@ var _Login = _interopRequireDefault(require("./views/Login"));
 var _Register = _interopRequireDefault(require("./views/Register"));
 
 var _Kanban = _interopRequireDefault(require("./views/Kanban"));
+
+var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11818,12 +11729,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
+  name: "App",
   data: function data() {
     return {
       isLogin: false,
       page: "",
-      urlServer: "http://localhost:3000"
+      urlServer: "http://localhost:3000",
+      taskData: []
     };
   },
   components: {
@@ -11834,6 +11753,73 @@ var _default = {
   methods: {
     changeIsLogin: function changeIsLogin(value) {
       this.isLogin = value;
+    },
+    directPage: function directPage(page) {
+      this.page = page;
+    },
+    getTasks: function getTasks() {
+      var _this = this;
+
+      (0, _axios.default)({
+        method: "GET",
+        // url: "http://localhost:3000/tasks",
+        url: "".concat(this.urlServer, "/tasks"),
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then(function (response) {
+        // console.log(response.data);
+        _this.taskData = response.data;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    destroyTask: function destroyTask(id) {
+      var _this2 = this;
+
+      (0, _axios.default)({
+        url: "".concat(this.urlServer, "/tasks/") + id,
+        method: "DELETE",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      }).then(function (response) {
+        _this2.getTasks();
+
+        console.log(response);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    editTask: function editTask(id) {
+      // console.log("dari App");
+      (0, _axios.default)({
+        url: "".concat(this.urlServer, "/tasks/") + id,
+        method: "PUT",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      }).then(function (response) {
+        // this.getTasks();
+        console.log(response);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    addTask: function addTask() {
+      // console.log("dari App");
+      (0, _axios.default)({
+        url: "".concat(this.urlServer, "/tasks/"),
+        method: "POST",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      }).then(function (response) {
+        // this.getTasks();
+        console.log(response);
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
   },
   created: function created() {
@@ -11860,7 +11846,16 @@ exports.default = _default;
   return _c(
     "div",
     [
-      _vm.isLogin ? _c("Kanban") : _vm._e(),
+      _vm.isLogin
+        ? _c("Kanban", {
+            attrs: { taskData: _vm.taskData },
+            on: {
+              getTasks: _vm.getTasks,
+              destroyTask: _vm.destroyTask,
+              editTask: _vm.editTask
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
       !_vm.isLogin
         ? _c("Login", {
@@ -11905,7 +11900,7 @@ render._withStripped = true
       
       }
     })();
-},{"./views/Login":"src/views/Login.vue","./views/Register":"src/views/Register.vue","./views/Kanban":"src/views/Kanban.vue","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/bootstrap/dist/css/bootstrap.css":[function(require,module,exports) {
+},{"./views/Login":"src/views/Login.vue","./views/Register":"src/views/Register.vue","./views/Kanban":"src/views/Kanban.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/bootstrap/dist/css/bootstrap.css":[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
@@ -11955,7 +11950,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53869" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50143" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

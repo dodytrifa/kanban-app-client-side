@@ -36,6 +36,7 @@
 <script>
 import axios from "axios";
 export default {
+  props: ["urlServer"],
   data() {
     return {
       registerEmail: "",
@@ -46,14 +47,14 @@ export default {
     register() {
       axios({
         method: "POST",
-        url: "http://localhost:3000/users/register",
+        url: `${this.urlServer}/users/register`,
         data: {
           email: this.registerEmail,
           password: this.registerPassword,
         },
       })
         .then((response) => {
-          console.log(response);
+          console.log(response.data.msg);
         })
         .catch((err) => {
           console.log(err);
