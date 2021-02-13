@@ -1,44 +1,33 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light text-white bg-info">
+    <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Kanban App</a>
+        <h1 class="navbar-brand">Kanban App</h1>
+
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          @click.prevent="logout"
+          class="btn btn-outline-danger"
+          type="submit"
         >
-          <span class="navbar-toggler-icon"></span>
+          Logout
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form class="d-flex flex-end">
-            <button
-              class="d-flex flex-end btn btn-outline-bg-info"
-              type="submit"
-            >
-              Logout
-            </button>
-          </form>
-        </div>
       </div>
     </nav>
-    <br /><br />
-
+    <br />
+    <p align="center" style="color: red" v-if="authorizationCheck">
+      {{ authorization }}
+    </p>
     <div class="container-fluid d-flex justify-content-around">
       <div class="row">
         <Category
           v-for="(category, index) in categories"
           :key="index"
           :taskData="taskData"
+          :authorization="authorizationCheck"
           :eachCategory="category"
           @destroyTask="destroyTask"
           @editTask="editTask"
-          @addTask="addTask"
+          @emitDirectPage="directPage"
         ></Category>
       </div>
     </div>
@@ -46,48 +35,37 @@
 </template>
 
 <script>
-// import axios from "axios";
 import Category from "../components/Category.vue";
 import Task from "../components/Task.vue";
 export default {
   data() {
     return {
       categories: ["Backlog", "Todo", "Doing", "Complete"],
+      page: "kanban",
     };
   },
   components: {
     Category,
     Task,
   },
-  props: ["taskData"],
+  props: ["taskData", "authorizationCheck"],
   methods: {
     destroyTask(id) {
-      // console.log("del dari kanban");
       this.$emit("destroyTask", id);
     },
     editTask(id) {
-      // console.log("dari kanban");
       this.$emit("editTask", id);
     },
-    addTask() {},
+    addTask() {
+      console.log("dari kanban");
+    },
+    directPage(value) {
+      this.$emit("emitDirectPage", value);
+    },
+    logout() {
+      this.$emit("logout");
+    },
   },
-  // methods: {
-  //   getTasks() {
-  //     axios({
-  //       method: "GET",
-  //       url: "http://localhost:3000/tasks",
-  //       headers: {
-  //         access_token: localStorage.access_token,
-  //       },
-  //     })
-  //       .then(({ data }) => {
-  //         console.log(data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   },
-  // },
   created() {
     this.$emit("getTasks");
   },

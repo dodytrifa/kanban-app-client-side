@@ -7,17 +7,13 @@
       <p class="card-text">{{ categoryContainer.title }}</p>
       <div class="d-flex justify-content-end">
         <button
+          @click.prevent="directPage"
           type="button"
           class="m-2 btn btn-sm btn-outline-primary rounded-pill"
-          @click="editTask"
         >
-          Edit
+          Edit/ Move
         </button>
-        <a
-          type="button"
-          class="m-2 btn btn-sm btn-outline-secondary rounded-pill"
-          >Move</a
-        >
+
         <button
           type="button"
           class="m-2 btn btn-sm btn-outline-danger rounded-pill"
@@ -35,6 +31,13 @@ export default {
   name: "Task",
   props: ["categoryContainer"],
   methods: {
+    directPage(value) {
+      this.$emit("emitDirectPage", "EditTask", this.categoryContainer.id);
+      localStorage.setItem(
+        "selectedTask",
+        JSON.stringify(this.categoryContainer)
+      );
+    },
     destroyTask() {
       this.$emit("destroyTask", this.categoryContainer.id);
     },

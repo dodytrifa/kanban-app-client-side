@@ -10,24 +10,21 @@
         :categoryContainer="task"
         @destroyTask="destroyTask"
         @editTask="editTask"
+        @emitDirectPage="directPage"
       ></Task>
 
       <div class="d-flex justify-content-end">
         <div class="p-3 d-flex justify-content-end">
-          <a
-            href="#"
+          <button
+            @click.prevent="directPage"
+            type="button"
             class="btn btn-sm btn-primary rounded-pill"
-            data-bs-toggle="modal"
-            data-bs-target="#addModal"
-            >Add</a
           >
+            Add
+          </button>
         </div>
       </div>
     </div>
-
-    <!--tes CARD  -->
-
-    <!-- tes CARD -->
   </div>
 </template>
 
@@ -35,22 +32,28 @@
 import Task from "../components/Task";
 export default {
   name: "Category",
+  data() {
+    return {
+      dataTask: [],
+    };
+  },
   components: {
     Task,
   },
   props: ["eachCategory", "taskData"],
   methods: {
+    directPage(value) {
+      if (value === "EditTask") {
+        this.$emit("emitDirectPage", "EditTask");
+      } else {
+        this.$emit("emitDirectPage", "AddTask");
+      }
+    },
     destroyTask(id) {
-      // console.log("dari category");
       this.$emit("destroyTask", id);
     },
     editTask(id) {
-      // console.log("dari category");
       this.$emit("editTask", id);
-    },
-    addTask() {
-      // console.log("dari category");
-      this.$emit("addTask");
     },
   },
   computed: {
@@ -64,6 +67,15 @@ export default {
       return categoryContainer;
     },
   },
+  // created(){
+  //   let categoryContainer = [];
+  //     for (let i = 0; i < this.taskData.length; i++) {
+  //       if (this.taskData[i].category === this.eachCategory) {
+  //         categoryContainer.push(this.taskData[i]);
+  //       }
+  //     }
+  //     this.dataTask = categoryContainer
+  // }
 };
 </script>
 

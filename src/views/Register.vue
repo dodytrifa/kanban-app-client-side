@@ -1,35 +1,48 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <form @submit.prevent="register" id="register-form">
-      <h3>Register</h3>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          v-model="registerEmail"
-          type="email"
-          class="form-control"
-          id="register-email"
-          aria-describedby="emailHelp"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          v-model="registerPassword"
-          type="password"
-          class="form-control"
-          id="register-password"
-        />
-      </div>
+  <div class="d-flex align-items-center justify-content-center">
+    <div class="d-flex align-items-center justify-content-center">
+      <form @submit.prevent="register" id="register-form">
+        <h3>Register</h3>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            v-model="registerEmail"
+            type="email"
+            class="form-control"
+            id="register-email"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            v-model="registerPassword"
+            type="password"
+            class="form-control"
+            id="register-password"
+          />
+        </div>
 
-      <div class="backtologin" id="toLogin" style="cursor: pointer">
-        <a>Back to Login</a><br /><br />
-      </div>
-
-      <button type="submit" id="register" class="btn btn-primary">
-        Create account</button
-      ><br /><br />
-    </form>
+        <button type="submit" id="register" class="btn btn-primary">
+          Create account
+        </button>
+        <button
+          @click.prevent="directPage2"
+          type="button"
+          id="back"
+          class="btn btn-secondary"
+        >
+          Back to login
+        </button>
+        <br />
+        <p style="color: red" v-if="isRegisterError">{{ isRegisterError }}</p>
+        <p style="color: blue" v-if="isRegisterSuccess">
+          {{ isRegisterSuccess }}
+        </p>
+        <br /><br />
+      </form>
+    </div>
+    <div class=""></div>
   </div>
 </template>
 
@@ -41,9 +54,15 @@ export default {
     return {
       registerEmail: "",
       registerPassword: "",
+      page: "register",
+      isRegisterError: "",
+      isRegisterSuccess: "",
     };
   },
   methods: {
+    directPage2() {
+      this.$emit("emitDirectPage", "login");
+    },
     register() {
       axios({
         method: "POST",
@@ -54,10 +73,19 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response.data.msg);
+          // console.log(response.data.msg);
+          this.isRegisterSuccess = response.data.msg;
+          this.registerEmail = "";
+          this.registerPassword = "";
+          this.isRegisterError = "";
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data.errors);
+          if (this.registerPassword.length < 6) {
+            this.isRegisterError = err.response.data.errors;
+          } else {
+            this.isRegisterError = err.response.data.errors;
+          }
         });
     },
   },
