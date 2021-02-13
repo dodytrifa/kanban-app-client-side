@@ -39,6 +39,7 @@
         <p style="color: blue" v-if="isRegisterSuccess">
           {{ isRegisterSuccess }}
         </p>
+        <p style="color: black" v-if="isLoadingReg">Loading...</p>
         <br /><br />
       </form>
     </div>
@@ -57,6 +58,7 @@ export default {
       page: "register",
       isRegisterError: "",
       isRegisterSuccess: "",
+      isLoadingReg: false,
     };
   },
   methods: {
@@ -64,29 +66,34 @@ export default {
       this.$emit("emitDirectPage", "login");
     },
     register() {
-      axios({
-        method: "POST",
-        url: `${this.urlServer}/users/register`,
-        data: {
-          email: this.registerEmail,
-          password: this.registerPassword,
-        },
-      })
-        .then((response) => {
-          // console.log(response.data.msg);
-          this.isRegisterSuccess = response.data.msg;
-          this.registerEmail = "";
-          this.registerPassword = "";
-          this.isRegisterError = "";
+      this.isLoadingReg = true;
+      setTimeout(() => {
+        axios({
+          method: "POST",
+          url: `${this.urlServer}/users/register`,
+          data: {
+            email: this.registerEmail,
+            password: this.registerPassword,
+          },
         })
-        .catch((err) => {
-          console.log(err.response.data.errors);
-          if (this.registerPassword.length < 6) {
-            this.isRegisterError = err.response.data.errors;
-          } else {
-            this.isRegisterError = err.response.data.errors;
-          }
-        });
+          .then((response) => {
+            // console.log(response.data.msg);
+            this.isLoadingReg = false;
+            this.isRegisterSuccess = response.data.msg;
+            this.registerEmail = "";
+            this.registerPassword = "";
+            this.isRegisterError = "";
+          })
+          .catch((err) => {
+            this.isLoadingReg = false;
+            console.log(err.response.data.errors);
+            if (this.registerPassword.length < 6) {
+              this.isRegisterError = err.response.data.errors;
+            } else {
+              this.isRegisterError = err.response.data.errors;
+            }
+          });
+      }, 4000);
     },
   },
 };

@@ -45,6 +45,7 @@
           <br />
         </form>
         <p style="color: red" v-if="isLoginError">{{ isLoginError }}</p>
+        <p style="color: green" v-if="isLoadingLogin">Loading...</p>
       </div>
     </div>
   </div>
@@ -60,6 +61,7 @@ export default {
       loginPassword: "",
       page: "login",
       isLoginError: "",
+      isLoadingLogin: false,
     };
   },
   methods: {
@@ -67,26 +69,31 @@ export default {
       this.$emit("emitDirectPage", "register");
     },
     login() {
-      axios({
-        method: "POST",
-        url: `${this.urlServer}/users/login`,
-        data: {
-          email: this.loginEmail,
-          password: this.loginPassword,
-        },
-      })
-        .then((response) => {
-          console.log(response);
-          localStorage.setItem("access_token", response.data.access_token);
-          this.loginEmail = "";
-          this.loginPassword = "";
-          this.isLoginError = "";
-          this.$emit("emitChangeLogin", true);
+      this.isLoadingLogin = true;
+      setTimeout(() => {
+        axios({
+          method: "POST",
+          url: `${this.urlServer}/users/login`,
+          data: {
+            email: this.loginEmail,
+            password: this.loginPassword,
+          },
         })
-        .catch((err) => {
-          console.log(err.response.data);
-          this.isLoginError = err.response.data;
-        });
+          .then((response) => {
+            console.log(response);
+            localStorage.setItem("access_token", response.data.access_token);
+            this.loginEmail = "";
+            this.loginPassword = "";
+            this.isLoginError = "";
+            this.isLoadingLogin = false;
+            this.$emit("emitChangeLogin", true);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+            this.isLoadingLogin = false;
+            this.isLoginError = err.response.data;
+          });
+      }, 4000);
     },
   },
 };

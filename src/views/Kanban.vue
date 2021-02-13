@@ -14,16 +14,16 @@
       </div>
     </nav>
     <br />
-    <p align="center" style="color: red" v-if="authorizationCheck">
-      {{ authorization }}
+    <p v-if="authorization" align="center" style="color: red">
+      "You are not authorized"
     </p>
+
     <div class="container-fluid d-flex justify-content-around">
       <div class="row">
         <Category
           v-for="(category, index) in categories"
           :key="index"
           :taskData="taskData"
-          :authorization="authorizationCheck"
           :eachCategory="category"
           @destroyTask="destroyTask"
           @editTask="editTask"
@@ -48,7 +48,7 @@ export default {
     Category,
     Task,
   },
-  props: ["taskData", "authorizationCheck"],
+  props: ["taskData", "authorization"],
   methods: {
     destroyTask(id) {
       this.$emit("destroyTask", id);

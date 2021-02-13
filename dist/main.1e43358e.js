@@ -10749,10 +10749,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
 var _default = {
   props: ["dataisLogin", "urlServer"],
   data: function data() {
@@ -10760,7 +10756,8 @@ var _default = {
       loginEmail: "",
       loginPassword: "",
       page: "login",
-      isLoginError: ""
+      isLoginError: "",
+      isLoadingLogin: false
     };
   },
   methods: {
@@ -10770,25 +10767,30 @@ var _default = {
     login: function login() {
       var _this = this;
 
-      (0, _axios.default)({
-        method: "POST",
-        url: "".concat(this.urlServer, "/users/login"),
-        data: {
-          email: this.loginEmail,
-          password: this.loginPassword
-        }
-      }).then(function (response) {
-        console.log(response);
-        localStorage.setItem("access_token", response.data.access_token);
-        _this.loginEmail = "";
-        _this.loginPassword = "";
-        _this.isLoginError = "";
+      this.isLoadingLogin = true;
+      setTimeout(function () {
+        (0, _axios.default)({
+          method: "POST",
+          url: "".concat(_this.urlServer, "/users/login"),
+          data: {
+            email: _this.loginEmail,
+            password: _this.loginPassword
+          }
+        }).then(function (response) {
+          console.log(response);
+          localStorage.setItem("access_token", response.data.access_token);
+          _this.loginEmail = "";
+          _this.loginPassword = "";
+          _this.isLoginError = "";
+          _this.isLoadingLogin = false;
 
-        _this.$emit("emitChangeLogin", true);
-      }).catch(function (err) {
-        console.log(err.response.data);
-        _this.isLoginError = err.response.data;
-      });
+          _this.$emit("emitChangeLogin", true);
+        }).catch(function (err) {
+          console.log(err.response.data);
+          _this.isLoadingLogin = false;
+          _this.isLoginError = err.response.data;
+        });
+      }, 4000);
     }
   }
 };
@@ -10946,16 +10948,11 @@ exports.default = _default;
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", {
-            staticClass: "g-signin2",
-            attrs: { "data-onsuccess": "onSignIn" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.googleLogin($event)
-              }
-            }
-          })
+          _vm.isLoadingLogin
+            ? _c("p", { staticStyle: { color: "green" } }, [
+                _vm._v("Loading...")
+              ])
+            : _vm._e()
         ])
       ])
     ]
@@ -11054,6 +11051,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   props: ["urlServer"],
   data: function data() {
@@ -11062,7 +11060,8 @@ var _default = {
       registerPassword: "",
       page: "register",
       isRegisterError: "",
-      isRegisterSuccess: ""
+      isRegisterSuccess: "",
+      isLoadingReg: false
     };
   },
   methods: {
@@ -11072,28 +11071,33 @@ var _default = {
     register: function register() {
       var _this = this;
 
-      (0, _axios.default)({
-        method: "POST",
-        url: "".concat(this.urlServer, "/users/register"),
-        data: {
-          email: this.registerEmail,
-          password: this.registerPassword
-        }
-      }).then(function (response) {
-        // console.log(response.data.msg);
-        _this.isRegisterSuccess = response.data.msg;
-        _this.registerEmail = "";
-        _this.registerPassword = "";
-        _this.isRegisterError = "";
-      }).catch(function (err) {
-        console.log(err.response.data.errors);
+      this.isLoadingReg = true;
+      setTimeout(function () {
+        (0, _axios.default)({
+          method: "POST",
+          url: "".concat(_this.urlServer, "/users/register"),
+          data: {
+            email: _this.registerEmail,
+            password: _this.registerPassword
+          }
+        }).then(function (response) {
+          // console.log(response.data.msg);
+          _this.isLoadingReg = false;
+          _this.isRegisterSuccess = response.data.msg;
+          _this.registerEmail = "";
+          _this.registerPassword = "";
+          _this.isRegisterError = "";
+        }).catch(function (err) {
+          _this.isLoadingReg = false;
+          console.log(err.response.data.errors);
 
-        if (_this.registerPassword.length < 6) {
-          _this.isRegisterError = err.response.data.errors;
-        } else {
-          _this.isRegisterError = err.response.data.errors;
-        }
-      });
+          if (_this.registerPassword.length < 6) {
+            _this.isRegisterError = err.response.data.errors;
+          } else {
+            _this.isRegisterError = err.response.data.errors;
+          }
+        });
+      }, 4000);
     }
   }
 };
@@ -11233,6 +11237,12 @@ exports.default = _default;
                     _vm._v(
                       "\n        " + _vm._s(_vm.isRegisterSuccess) + "\n      "
                     )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isLoadingReg
+                ? _c("p", { staticStyle: { color: "black" } }, [
+                    _vm._v("Loading...")
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -11668,7 +11678,7 @@ var _default = {
     Category: _Category.default,
     Task: _Task.default
   },
-  props: ["taskData", "authorizationCheck"],
+  props: ["taskData", "authorization"],
   methods: {
     destroyTask: function destroyTask(id) {
       this.$emit("destroyTask", id);
@@ -11727,9 +11737,9 @@ exports.default = _default;
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _vm.authorizationCheck
+    _vm.authorization
       ? _c("p", { staticStyle: { color: "red" }, attrs: { align: "center" } }, [
-          _vm._v("\n    " + _vm._s(_vm.authorization) + "\n  ")
+          _vm._v('\n    "You are not authorized"\n  ')
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -11743,11 +11753,7 @@ exports.default = _default;
           _vm._l(_vm.categories, function(category, index) {
             return _c("Category", {
               key: index,
-              attrs: {
-                taskData: _vm.taskData,
-                authorization: _vm.authorizationCheck,
-                eachCategory: category
-              },
+              attrs: { taskData: _vm.taskData, eachCategory: category },
               on: {
                 destroyTask: _vm.destroyTask,
                 editTask: _vm.editTask,
@@ -12312,11 +12318,11 @@ var _default = {
     return {
       isLogin: false,
       page: "login",
-      // urlServer: "https://kanban-app-dody.herokuapp.com",
-      urlServer: "http://localhost:3000",
+      urlServer: "https://kanban-app-dody.herokuapp.com",
+      // urlServer: "http://localhost:3000",
       taskData: [],
       selectedTask: "",
-      authorizationCheck: ""
+      authorizationCheck: false
     };
   },
   components: {
@@ -12382,9 +12388,12 @@ var _default = {
       }).then(function (response) {
         _this3.getTasks();
 
-        _this3.page = "login";
+        _this3.page = "login"; // this.authorizationCheck = false;
+
         console.log(response.data.message);
       }).catch(function (err) {
+        _this3.authorizationCheck = true; // console.log(this.authorizationCheck);
+
         console.log(err.response.data.message);
       });
     },
@@ -12405,11 +12414,13 @@ var _default = {
       }).then(function (response) {
         _this4.getTasks();
 
-        _this4.page = "login";
+        _this4.page = "login"; // this.authorizationCheck = false;
       }).catch(function (err) {
-        console.log(err.response.data.message);
-        _this4.authorizationCheck = err.response.data.message;
+        console.log(err.response.data.message); // this.authorizationCheck = false;
       });
+    },
+    changeAuthorization: function changeAuthorization(value) {
+      this.authorizationCheck = value;
     },
     logout: function logout() {
       localStorage.clear();
@@ -12578,7 +12589,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50921" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

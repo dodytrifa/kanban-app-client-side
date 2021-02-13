@@ -58,7 +58,7 @@ export default {
       // urlServer: "http://localhost:3000",
       taskData: [],
       selectedTask: "",
-      authorizationCheck: "",
+      authorizationCheck: false,
     };
   },
   components: {
@@ -72,6 +72,7 @@ export default {
     changeIsLogin(value) {
       this.isLogin = value;
     },
+
     directPage(value, id) {
       this.page = value;
       this.selectedTask = id;
@@ -123,9 +124,12 @@ export default {
         .then((response) => {
           this.getTasks();
           this.page = "login";
+          // this.authorizationCheck = false;
           console.log(response.data.message);
         })
         .catch((err) => {
+          this.authorizationCheck = true;
+          // console.log(this.authorizationCheck);
           console.log(err.response.data.message);
         });
     },
@@ -145,11 +149,15 @@ export default {
         .then((response) => {
           this.getTasks();
           this.page = "login";
+          // this.authorizationCheck = false;
         })
         .catch((err) => {
           console.log(err.response.data.message);
-          this.authorizationCheck = err.response.data.message;
+          // this.authorizationCheck = false;
         });
+    },
+    changeAuthorization(value) {
+      this.authorizationCheck = value;
     },
 
     logout() {
