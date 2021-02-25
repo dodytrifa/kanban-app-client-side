@@ -43,11 +43,15 @@ export default {
   props: ["eachCategory", "taskData"],
   methods: {
     directPage(value) {
+      // console.log(value);
       if (value === "EditTask") {
         this.$emit("emitDirectPage", "EditTask");
       } else {
         this.$emit("emitDirectPage", "AddTask");
       }
+    },
+    showModal() {
+      this.$emit("showModal", true);
     },
     destroyTask(id) {
       this.$emit("destroyTask", id);
@@ -67,15 +71,6 @@ export default {
       return categoryContainer;
     },
   },
-  // created(){
-  //   let categoryContainer = [];
-  //     for (let i = 0; i < this.taskData.length; i++) {
-  //       if (this.taskData[i].category === this.eachCategory) {
-  //         categoryContainer.push(this.taskData[i]);
-  //       }
-  //     }
-  //     this.dataTask = categoryContainer
-  // }
 };
 </script>
 

@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div >
     <Kanban
       v-if="isLogin"
       :taskData="taskData"
       :authorization="authorizationCheck"
+      @showModal="isShowModal"
       @getTasks="getTasks"
       @destroyTask="destroyTask"
       @editTask="editTask"
@@ -28,6 +29,7 @@
       @addTask="addTask"
       @getTasks="getTasks"
       @emitDirectPage="directPage"
+      @showModal="isShowModal"
     ></AddTask>
     <EditTask
       v-if="page === 'EditTask'"
@@ -36,6 +38,7 @@
       @getTasks="getTasks"
       :id="selectedTask"
     ></EditTask>
+    
   </div>
 </template>
 
@@ -59,6 +62,7 @@ export default {
       taskData: [],
       selectedTask: "",
       authorizationCheck: false,
+      showModal: false
     };
   },
   components: {
@@ -77,7 +81,9 @@ export default {
       this.page = value;
       this.selectedTask = id;
     },
-
+    isShowModal(value) {
+      this.showModal = value;
+    },
     getTasks() {
       axios({
         method: "GET",
@@ -94,6 +100,7 @@ export default {
         });
     },
     addTask(selected, taskInput) {
+      console.log(selected, taskInput);
       axios({
         method: "POST",
         url: `${this.urlServer}/tasks/`,
@@ -178,4 +185,5 @@ export default {
 </script>
 
 <style>
+
 </style>

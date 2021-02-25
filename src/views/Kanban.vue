@@ -25,6 +25,7 @@
           :key="index"
           :taskData="taskData"
           :eachCategory="category"
+          @showModal="showModal"
           @destroyTask="destroyTask"
           @editTask="editTask"
           @emitDirectPage="directPage"
@@ -55,6 +56,9 @@ export default {
     },
     editTask(id) {
       this.$emit("editTask", id);
+    },
+    showModal(value) {
+      this.$emit("showModal", value);
     },
     addTask() {
       console.log("dari kanban");

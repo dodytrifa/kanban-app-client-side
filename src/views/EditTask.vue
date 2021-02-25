@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "EditTask",
@@ -43,28 +42,6 @@ export default {
   methods: {
     editTask() {
       this.$emit("editTask", this.selected, this.titleInput);
-      // console.log(this.id);
-      // const dataTask = JSON.parse(localStorage.getItem("selectedTask"));
-      // axios({
-      //   url: `${this.urlServer}/tasks/` + dataTask.id,
-      //   method: "PUT",
-      //   headers: {
-      //     access_token: localStorage.getItem("access_token"),
-      //   },
-      //   data: {
-      //     category: this.selected,
-      //     title: this.titleInput,
-      //   },
-      // })
-      //   .then((response) => {
-      //     console.log(this.selected);
-      //     console.log(this.titleInput);
-      //     console.log(this.id);
-      //     console.log(response);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
   },
 };
