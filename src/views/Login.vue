@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <div>
         <form @submit.prevent="login" id="login-form">
           <h1>Welcome to Kanban App</h1>
@@ -34,7 +34,6 @@
           <button type="submit" class="btn btn-primary d-flex">Submit</button>
           </div>
           <br />
-          
           <p class="text-center">If you don't have any account, please create an account</p>
           <div class="to-register-page d-flex justify-content-center" id="toRegister" style="cursor: pointer">
             <button

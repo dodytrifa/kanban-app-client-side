@@ -1,9 +1,8 @@
 <template>
-  <div class="d-flex align-items-center justify-content-center">
-    <div class="d-flex align-items-center justify-content-center">
+  <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <form @submit.prevent="register" id="register-form">
-        <h3>Register</h3>
-        <div class="mb-3">
+        <h3 class="text-center mb-4">Register</h3>
+        <div class="mb-3 text-center">
           <label for="email" class="form-label">Email address</label>
           <input
             v-model="registerEmail"
@@ -13,7 +12,7 @@
             aria-describedby="emailHelp"
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-3 text-center">
           <label for="password" class="form-label">Password</label>
           <input
             v-model="registerPassword"
@@ -42,8 +41,7 @@
         <p style="color: black" v-if="isLoadingReg">Loading...</p>
         <br /><br />
       </form>
-    </div>
-    <div class=""></div>
+    
   </div>
 </template>
 
