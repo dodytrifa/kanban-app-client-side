@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-color: #DBECFF" >
       <div>
         <form @submit.prevent="login" id="login-form">
           <h1>Welcome to Kanban App</h1>
@@ -149,5 +149,9 @@ export default {
 .googlebutton {
   display: flex;
   justify-content: center;
+}
+
+.login {
+  background-color: #77acf1;
 }
 </style>

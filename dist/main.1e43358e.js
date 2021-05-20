@@ -10864,7 +10864,8 @@ exports.default = _default;
       "div",
       {
         staticClass:
-          "d-flex flex-column min-vh-100 justify-content-center align-items-center"
+          "d-flex flex-column min-vh-100 justify-content-center align-items-center",
+        staticStyle: { "background-color": "#DBECFF" }
       },
       [
         _c("div", [
@@ -11147,7 +11148,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 var _default = {
   props: ["urlServer"],
   data: function data() {
@@ -11214,7 +11214,8 @@ exports.default = _default;
     "div",
     {
       staticClass:
-        "d-flex flex-column min-vh-100 justify-content-center align-items-center"
+        "d-flex flex-column min-vh-100 justify-content-center align-items-center",
+      staticStyle: { "background-color": "#DBECFF" }
     },
     [
       _c(
@@ -11229,7 +11230,9 @@ exports.default = _default;
           }
         },
         [
-          _c("h3", { staticClass: "text-center mb-4" }, [_vm._v("Register")]),
+          _c("h3", { staticClass: "text-center mb-4" }, [
+            _vm._v("Register account")
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "mb-3 text-center" }, [
             _c(
@@ -12701,7 +12704,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55456" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51962" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

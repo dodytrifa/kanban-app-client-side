@@ -2,6 +2,9 @@
   display: flex;
   justify-content: center;
 }
+.login[data-v-622135] {
+  background-color: #77acf1;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

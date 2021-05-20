@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+  <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-color: #DBECFF">
       <form @submit.prevent="register" id="register-form">
-        <h3 class="text-center mb-4">Register</h3>
+        <h3 class="text-center mb-4">Register account</h3>
         <div class="mb-3 text-center">
           <label for="email" class="form-label">Email address</label>
           <input
@@ -41,7 +41,6 @@
         <p style="color: black" v-if="isLoadingReg">Loading...</p>
         <br /><br />
       </form>
-    
   </div>
 </template>
 
